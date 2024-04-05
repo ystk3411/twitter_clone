@@ -120,7 +120,7 @@ GEM
       activesupport (>= 5.0)
     hashie (5.0.0)
     hpricot (0.8.6)
-    html2slim (0.2.0)
+    html2slim-ruby3 (0.2.1)
       hpricot
     htmlbeautifier (1.4.2)
     i18n (1.14.1)
@@ -342,7 +342,7 @@ DEPENDENCIES
   debug
   devise
   factory_bot_rails
-  html2slim
+  html2slim-ruby3
   htmlbeautifier
   jbuilder
   jsbundling-rails

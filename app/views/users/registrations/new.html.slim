@@ -1,0 +1,32 @@
+h2
+  | Sign up
+= form_with model:resource, url:user_registration_path do |f|
+  = render "users/shared/error_messages", resource: resource
+  .field
+    = f.label :email
+    br
+    = f.email_field :email, autofocus: true, autocomplete: "email"
+  .field
+    = f.label :birth_day
+    br
+    = f.date_select :birth_day, autofocus: true,start_year: (1900),use_month_numbers:true, autocomplete: "birth_day"
+  .field
+    = f.label :telephone_number
+    br
+    = f.telephone_field :telephone_number, autofocus: true, autocomplete: "phone_number"
+  .field
+    = f.label :password
+    - if @minimum_password_length
+      em
+        | (
+        = @minimum_password_length
+        |  characters minimum)
+    br
+    = f.password_field :password, autocomplete: "new-password"
+  .field
+    = f.label :password_confirmation
+    br
+    = f.password_field :password_confirmation, autocomplete: "new-password"
+  .actions
+    = f.submit "Sign up"
+= render "users/shared/links"
