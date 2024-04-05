@@ -42,6 +42,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_03_150700) do
     t.datetime "locked_at"
     t.integer "telephone_number", null: false
     t.date "birth_day", null: false
+    t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
