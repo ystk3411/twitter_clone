@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get 'tweets/show'
   devise_for :users
   resources :tasks
+  resource :tweets
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
