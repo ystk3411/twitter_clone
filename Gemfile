@@ -57,7 +57,7 @@ gem 'devise'
 
 gem 'omniauth'
 
-gem "slim-rails"
+gem 'slim-rails'
 
 gem 'html2slim-ruby3'
 
@@ -71,13 +71,13 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem 'htmlbeautifier'
+  gem 'letter_opener_web'
   gem 'rails_best_practices'
   gem 'rubocop', require: false
   gem 'rubocop-hc', require: false, github: 'ihatov08/rubocop-hc'
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
   gem 'web-console'
-  gem 'letter_opener_web'
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
