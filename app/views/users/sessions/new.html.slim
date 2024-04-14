@@ -1,20 +1,20 @@
 div.container.col-md-6.mt-5
     h2.text-center
-      | Log in
+      | ログイン
     = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
       .field
-        = f.label :email
+        = f.label :email,"メールアドレス"
         br
         = f.email_field :email, autofocus: true, autocomplete: "email",class:"form-control"
       .field
-        = f.label :password
+        = f.label :password,"パスワード"
         br
         = f.password_field :password, autocomplete: "current-password",class:"form-control"
       - if devise_mapping.rememberable?
         .field.text-center
           = f.check_box :remember_me
-          = f.label :remember_me
+          = f.label :remember_me,'ログイン情報を記憶'
       .actions.text-center
-        = f.submit "Log in",class:"btn btn-primary"
+        = f.submit "ログイン",class:"btn btn-primary mb-2"
     div.text-center
       = render "users/shared/links"
