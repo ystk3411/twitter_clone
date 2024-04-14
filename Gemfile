@@ -57,6 +57,10 @@ gem 'devise'
 
 gem 'omniauth'
 
+gem 'omniauth-github'
+
+gem 'omniauth-rails_csrf_protection'
+
 gem 'slim-rails'
 
 gem 'html2slim-ruby3'
@@ -66,6 +70,7 @@ group :development, :test do
   gem 'debug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails'
   gem 'rspec-rails'
+  gem 'dotenv-rails'
 end
 
 group :development do
