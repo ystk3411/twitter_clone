@@ -312,4 +312,5 @@ Devise.setup do |config|
   # config.sign_in_after_change_password = true
 
   config.omniauth :github, ENV['GITHUB_ID'], ENV['GITHUB_SECRET']
+  OmniAuth.config.full_host = 'https://twitterclone202404-a203c730342a.herokuapp.com' if Rails.env.production?
 end
