@@ -1,0 +1,36 @@
+ul.nav.flex-column.navbar
+  li.nav-item
+    h4
+      = link_to "","#",class:"nav-link text-white bi bi-twitter"
+  li.nav-item
+    h4
+      = link_to "ホーム","#",class:"nav-link text-white bi bi-house-door"
+  li.nav-item
+    h4
+      = link_to "話題を検索","#",class:"nav-link text-white bi bi-search"
+  li.nav-item
+    h4
+      = link_to "通知","#",class:"nav-link text-white bi bi-bell"
+  li.nav-item
+    h4
+      = link_to "メッセージ","#",class:"nav-link text-white bi bi-envelope"
+  li.nav-item
+    h4
+      = link_to "ブックマーク","#",class:"nav-link text-white bi bi-bookmark"
+  li.nav-item
+    h4
+      = link_to "Twitter Blue","#",class:"nav-link text-white bi bi-twitter"
+  li.nav-item
+    h4
+      = link_to "プロフィール","#",class:"nav-link text-white bi bi-person"
+  li.nav-item
+    h4
+      = link_to "もっと見る","#",class:"nav-link text-white bi bi bi-three-dots"
+  li.nav-item
+    h4
+      = link_to 'ツイートする',"#",class:"nav-link btn btn-twitter text-white"
+ul.nav.d-flex.navbar.flex-column.mt-auto
+    - if user_signed_in?
+          h5.text-white
+            =link_to "#{current_user.name}","#",class:"nav-link text-white "
+

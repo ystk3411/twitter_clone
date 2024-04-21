@@ -1,7 +1,8 @@
 nav.navbar.navbar-expand-lg.bg-body-tertiary
   .container-fluid
     a.navbar-brand[href=root_path]
-      h2 Twitterクローン
+      h3.text-primary
+        | Twitterクローン
     div.d-flex
       - if user_signed_in?
         = link_to 'ログアウト', destroy_user_session_path, data: { turbo_method: :delete },class:"btn btn-outline-danger"
