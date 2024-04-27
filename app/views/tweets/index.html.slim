@@ -1,5 +1,33 @@
-div.container.d-flex.h-100
-  div.flex-shrink-1.flex-column.border-end.h-100.d-flex
+div.container.d-flex.h-100.text-white
+  div.w-25.d-flex.flex-column.border-end.h-100
     = render "layouts/side_bar"
+  div.w-50.border-end
+    h5.p-3 ホーム
+    ul.nav.nav-tabs.w-100.nav-justified.border-bottom id="myTab" role="tablist"
+      li.nav-item.w-50 role="presentation"
+          h5.text-white
+            button.nav-link.active#recommend-tab data-bs-toggle="tab" data-bs-target="#recommend" type="button" role="tab" aria-controls="recommned" aria-selected="true"
+              | おすすめ
+      li.nav-item.w-50 role="presentation"
+          h5.active.text-white
+            button.nav-link#follow-tab data-bs-toggle="tab" data-bs-target="#follow" type="button" role="tab" aria-controls="follow" aria-selected="false"
+              | フォロー中
+    div.d-flex.border-bottom.p-2.gap-2
+      = link_to image_tag("twitter_logo.jpg",size:"40x40",class:"rounded-circle") ,""
+      div.w-100.flex-column
+        = form_with url:""  do |f|
+          = f.text_field :tweet, class: "form-control bg-dark border-0 text-white fs-4", placeholder: "いまどうしてる?"
+          div.w-100.d-flex
+            div.d-flex.w-50.gap-4.p-3 style="color:#00acee;"
+              i.bi.bi-image
+              i.bi.bi-filetype-gif
+              i.bi.bi-list-task
+              i.bi.bi-emoji-smile
+              i.bi.bi-calendar-check
+              i.bi.bi-geo-alt
+            div.w-100.p-2.d-flex.justify-content-end
+              = link_to 'ツイートする',"#",class:"btn btn-twitter text-white"
+      
+
         
 

@@ -1,4 +1,4 @@
-ul.nav.flex-column.navbar
+ul.nav.flex-column.navbar.text-white
   li.nav-item
     h4
       = link_to "","#",class:"nav-link text-white bi bi-twitter"
@@ -31,6 +31,6 @@ ul.nav.flex-column.navbar
       = link_to 'ツイートする',"#",class:"nav-link btn btn-twitter text-white"
 ul.nav.d-flex.navbar.flex-column.mt-auto
     - if user_signed_in?
-          h5.text-white
+          h4.text-white
             =link_to "#{current_user.name}","#",class:"nav-link text-white "
 
