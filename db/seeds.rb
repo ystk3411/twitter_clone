@@ -21,3 +21,8 @@
     user_id:4 + n
   )
 end
+
+Relationship.create!(
+    followed_id:4,
+    follower_id:5
+  )

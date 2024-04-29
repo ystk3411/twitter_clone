@@ -1,7 +1,7 @@
-div.container.d-flex.h-100.text-white
-  div.w-25.d-flex.flex-column.border-end.h-100
+div.container.d-flex.h-100.text-white.box
+  div.w-25.d-flex.flex-column.border-end.h-100.sticky-top
     = render "layouts/side_bar"
-  div.w-50.border-end
+  div.w-50
     h5.p-3 ホーム
     ul.nav.nav-tabs.w-100.nav-justified.border-bottom id="myTab" role="tablist"
       li.nav-item.w-50 role="presentation"
@@ -22,7 +22,15 @@ div.container.d-flex.h-100.text-white
               i.bi.bi-image
             div.w-100.p-2.d-flex.justify-content-end
               = link_to 'ツイートする',"#",class:"btn btn-twitter text-white"
-    
+    - @tweets.each do |tweet|
+      div.d-flex.border-bottom.p-2.gap-2
+        = link_to image_tag("twitter_logo.jpg",size:"40x40",class:"rounded-circle") ,""
+        div.w-100.flex-column
+          = tweet.content
+          br
+          = tweet.user.name
+    = paginate @tweets
+  div.w-25.h-100.border-start.sticky-top
       
 
         
