@@ -3,14 +3,14 @@ div.container.d-flex.h-100.text-white.box
     = render "layouts/side_bar"
   div.w-50
     h5.p-3 ホーム
-    ul.nav.nav-tabs.w-100.nav-justified.border-bottom id="myTab" role="tablist"
-      li.nav-item.w-50 role="presentation" 
+    ul.nav.nav-tabs.w-100.nav-justified.border-bottom
+      li.nav-item.w-50
           h5.text-white
-            button.nav-link.active#recommend-tab data-bs-toggle="tab" data-bs-target="#recommend" type="button" role="tab" aria-controls="recommned" aria-selected="true"
+            button.nav-link.active data-bs-toggle="tab" data-bs-target="#recommend-tab-pane" type="button" role="tab" aria-controls="recommend-tab-pane"
               | おすすめ
-      li.nav-item.w-50 role="presentation"
-          h5.active.text-white
-            button.nav-link#follow-tab data-bs-toggle="tab" data-bs-target="#follow" type="button" role="tab" aria-controls="follow" aria-selected="false"
+      li.nav-item.w-50
+          h5.text-white
+            button.nav-link data-bs-toggle="tab" data-bs-target="#follow-tab-pane" type="button" role="tab" aria-controls="follow-tab-pane"
               | フォロー中
     div.d-flex.border-bottom.p-2.gap-2
       = link_to image_tag("twitter_logo.jpg",size:"40x40",class:"rounded-circle") ,""
@@ -22,14 +22,25 @@ div.container.d-flex.h-100.text-white.box
               i.bi.bi-image
             div.w-100.p-2.d-flex.justify-content-end
               = link_to 'ツイートする',"#",class:"btn btn-twitter text-white"
-    - @tweets.each do |tweet|
-      div.d-flex.border-bottom.p-2.gap-2
-        = link_to image_tag("twitter_logo.jpg",size:"40x40",class:"rounded-circle") ,""
-        div.w-100.flex-column
-          = tweet.content
-          br
-          = tweet.user.name
-    = paginate @tweets, theme: 'bootstrap-5'
+    div.tab-content
+          div#recommend-tab-pane.tab-pane.active.fade.show  aria-labelledby="recommend-tab" tabindex="0" role="tabpanel"
+            - @tweets.each do |tweet|
+              div.d-flex.border-bottom.p-2.gap-2
+                = link_to image_tag("twitter_logo.jpg",size:"40x40",class:"rounded-circle") ,""
+                div.w-100.flex-column
+                  = tweet.id
+                  br
+                  = tweet.user.name
+            = paginate @tweets, theme: 'bootstrap-5'
+          div#follow-tab-pane.tab-pane.fade aria-labelledby="follow-tab" tabindex="0" role="tabpanel"
+            - @tweets_following.each do |tweet|
+              div.d-flex.border-bottom.p-2.gap-2
+                = link_to image_tag("twitter_logo.jpg",size:"40x40",class:"rounded-circle") ,""
+                div.w-100.flex-column
+                  = tweet.id
+                  br
+                  = tweet.user.name
+            = paginate @tweets_following, theme: 'bootstrap-5'
   div.w-25.h-100.border-start.sticky-top
       
 
