@@ -2,14 +2,12 @@
 
 module DeviseHelper
   # deviseのフラッシュメッセージにbootstrapを適応
+  KEYS = {
+    'alert' => 'warning',
+    'notice' => 'success',
+    'error' => 'danger'
+  }.freeze
   def bootstrap_alert(key)
-    case key
-    when 'alert'
-      'warning'
-    when 'notice'
-      'success'
-    when 'error'
-      'danger'
-    end
+    KEYS[key]
   end
 end
