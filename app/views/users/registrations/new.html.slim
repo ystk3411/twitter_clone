@@ -1,6 +1,6 @@
-div.container.col-md-6.mt-5
+div.container.col-md-6.mt-5.text-white
   h2.text-center
-    | Sign up
+    | 新規登録
   = form_with model:resource, url:user_registration_path do |f|
     = render "users/shared/error_messages", resource: resource
     .field
