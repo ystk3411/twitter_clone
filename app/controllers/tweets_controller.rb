@@ -3,10 +3,12 @@
 class TweetsController < ApplicationController
   def index
     tweets = Tweet.all.order(created_at: :desc)
-    tweets_following = Tweet.where(user_id:Relationship.where(follower_id:current_user.id).pluck(:followed_id))
     @tweets = Kaminari.paginate_array(tweets).page(params[:page]).per(10)
-    @tweets_following = Kaminari.paginate_array(tweets_following).page(params[:page]).per(10)
-    p tweets_following
+    
+    if current_user
+      tweets_following = Tweet.where(user_id:Relationship.where(follower_id:current_user.id).pluck(:followed_id))
+      @tweets_following = Kaminari.paginate_array(tweets_following).page(params[:page]).per(10)
+    end
   end
 
   def show; end

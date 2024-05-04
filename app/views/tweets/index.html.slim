@@ -33,14 +33,15 @@ div.container.d-flex.h-100.text-white.box
                   = tweet.content
             = paginate @tweets, theme: 'bootstrap-5'
           div#follow-tab-pane.tab-pane.fade aria-labelledby="follow-tab" tabindex="0" role="tabpanel"
-            - @tweets_following.each do |tweet|
-              div.d-flex.border-bottom.p-2.gap-2
-                = link_to image_tag("twitter_logo.jpg",size:"40x40",class:"rounded-circle") ,""
-                div.w-100.flex-column
-                  = tweet.user.name
-                  br
-                  = tweet.content
-            = paginate @tweets_following, theme: 'bootstrap-5'
+            - if current_user
+              - @tweets_following.each do |tweet|
+                div.d-flex.border-bottom.p-2.gap-2
+                  = link_to image_tag("twitter_logo.jpg",size:"40x40",class:"rounded-circle") ,""
+                  div.w-100.flex-column
+                    = tweet.user.name
+                    br
+                    = tweet.content
+              = paginate @tweets_following, theme: 'bootstrap-5'
   div.w-25.h-100.border-start.sticky-top
       
 
