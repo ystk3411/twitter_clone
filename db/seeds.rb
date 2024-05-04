@@ -18,11 +18,11 @@
 
   Tweet.create!(
     content:"test#{n + 1}",
-    user_id:4 + n
+    user_id:1 + n
   )
 end
 
 Relationship.create!(
-    followed_id:4,
-    follower_id:5
+    followed_id:2,
+    follower_id:1
   )
