@@ -1,4 +1,49 @@
-- if user_signed_in?
-  h2 = current_user.name
-  div
-    = link_to 'ツイートする'
+div.container.d-flex.h-100.text-white.box
+  div.w-25.d-flex.flex-column.border-end.h-100.sticky-top
+    = render "layouts/side_bar"
+  div.w-50
+    h5.p-3 ホーム
+    ul.nav.nav-tabs.w-100.nav-justified.border-bottom
+      li.nav-item.w-50
+          h5.text-white
+            button.nav-link.active data-bs-toggle="tab" data-bs-target="#recommend-tab-pane" type="button" role="tab" aria-controls="recommend-tab-pane"
+              | おすすめ
+      li.nav-item.w-50
+          h5.text-white
+            button.nav-link data-bs-toggle="tab" data-bs-target="#follow-tab-pane" type="button" role="tab" aria-controls="follow-tab-pane"
+              | フォロー中
+    div.d-flex.border-bottom.p-2.gap-2
+      = link_to image_tag("twitter_logo.jpg",size:"40x40",class:"rounded-circle") ,""
+      div.w-100.flex-column
+        = form_with url:""  do |f|
+          = f.text_field :tweet, class: "form-control bg-dark border-0 text-white fs-4", placeholder: "いまどうしてる?"
+          div.w-100.d-flex
+            div.d-flex.w-50.gap-4.p-3 style="color:#00acee;"
+              i.bi.bi-image
+            div.w-100.p-2.d-flex.justify-content-end
+              = link_to 'ツイートする',"#",class:"btn btn-twitter text-white"
+    div.tab-content
+          div#recommend-tab-pane.tab-pane.active.fade.show  aria-labelledby="recommend-tab" tabindex="0" role="tabpanel"
+            - @tweets.each do |tweet|
+              div.d-flex.border-bottom.p-2.gap-2
+                = link_to image_tag("twitter_logo.jpg",size:"40x40",class:"rounded-circle") ,""
+                div.w-100.flex-column
+                  = tweet.user.name
+                  br
+                  = tweet.content
+            = paginate @tweets, theme: 'bootstrap-5'
+          div#follow-tab-pane.tab-pane.fade aria-labelledby="follow-tab" tabindex="0" role="tabpanel"
+            - if current_user
+              - @tweets_following.each do |tweet|
+                div.d-flex.border-bottom.p-2.gap-2
+                  = link_to image_tag("twitter_logo.jpg",size:"40x40",class:"rounded-circle") ,""
+                  div.w-100.flex-column
+                    = tweet.user.name
+                    br
+                    = tweet.content
+              = paginate @tweets_following, theme: 'bootstrap-5'
+  div.w-25.h-100.border-start.sticky-top
+      
+
+        
+

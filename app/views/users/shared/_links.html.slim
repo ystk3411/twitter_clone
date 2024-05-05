@@ -17,5 +17,5 @@
 - if devise_mapping.omniauthable?
   - resource_class.omniauth_providers.each do |provider|
     = image_tag("github_logo.png")
-    = link_to "#{OmniAuth::Utils.camelize(provider)}でログイン", omniauth_authorize_path(resource_name, provider), data: { turbo: false, }, class:"text-black text-decoration-none fw-bold"
+    = link_to "#{OmniAuth::Utils.camelize(provider)}でログイン", omniauth_authorize_path(resource_name, provider), data: { turbo: false, }, class:"text-black text-decoration-none fw-bold text-white"
     br

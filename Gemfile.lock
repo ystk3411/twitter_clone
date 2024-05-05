@@ -81,6 +81,9 @@ GEM
     bindex (0.8.1)
     bootsnap (1.16.0)
       msgpack (~> 1.2)
+    bootstrap5-kaminari-views (0.0.1)
+      kaminari (>= 0.13)
+      rails (>= 3.1)
     builder (3.2.4)
     capybara (3.39.2)
       addressable
@@ -144,6 +147,18 @@ GEM
     json (2.6.3)
     jwt (2.8.1)
       base64
+    kaminari (1.2.2)
+      activesupport (>= 4.1.0)
+      kaminari-actionview (= 1.2.2)
+      kaminari-activerecord (= 1.2.2)
+      kaminari-core (= 1.2.2)
+    kaminari-actionview (1.2.2)
+      actionview
+      kaminari-core (= 1.2.2)
+    kaminari-activerecord (1.2.2)
+      activerecord
+      kaminari-core (= 1.2.2)
+    kaminari-core (1.2.2)
     language_server-protocol (3.17.0.3)
     launchy (3.0.0)
       addressable (~> 2.8)
@@ -371,6 +386,7 @@ PLATFORMS
 
 DEPENDENCIES
   bootsnap
+  bootstrap5-kaminari-views
   capybara
   cssbundling-rails
   debug
@@ -381,6 +397,7 @@ DEPENDENCIES
   htmlbeautifier
   jbuilder
   jsbundling-rails
+  kaminari
   letter_opener_web
   omniauth
   omniauth-github

@@ -1,2 +1,27 @@
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
+
+.btn-twitter{
+  background-color: #00acee;
+  border-radius: 30px;
+}
+
+.box {
+  overflow: scroll;
+}
+
+.pagination {
+  justify-content: center;
+}
+
+.pagination>li>a {          
+  background: $gray-900;
+  color:white;
+  border:none;
+}
+
+.nav-tabs {
+  .nav-link {
+    color: white;
+  }
+}
