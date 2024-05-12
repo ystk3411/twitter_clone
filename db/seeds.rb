@@ -10,13 +10,13 @@
 
 10.times do |n|
   Retweet.create!(
-    tweet_id:n + 1,
+    tweet_id: n + 1,
     user_id: 1
   )
 
   Comment.create!(
-    content:"comment#{n + 1}",
-    tweet_id:n + 1,
+    content: "comment#{n + 1}",
+    tweet_id: n + 1,
     user_id: 1
   )
 end

@@ -2,7 +2,7 @@
 
 class Tweet < ApplicationRecord
   belongs_to :user
-  has_many :likes
-  has_many :retweets
-  has_many :comments
+  has_many :likes, dependent: :destroy
+  has_many :retweets, dependent: :destroy
+  has_many :comments, dependent: :destroy
 end
