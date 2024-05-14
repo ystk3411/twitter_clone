@@ -6,16 +6,16 @@ class UsersController < ApplicationController
   def show
     return unless current_user
 
-    tweets = Tweet.where(user_id: current_user.id).order(created_at: :desc)
+    tweets = current_user.tweets
     @tweets = Kaminari.paginate_array(tweets).page(params[:page]).per(10)
 
-    tweets_like = Like.where(user_id: current_user.id)
+    tweets_like = current_user.likes.eager_load(:user, :tweet)
     @tweets_like = Kaminari.paginate_array(tweets_like).page(params[:page]).per(10)
 
-    tweets_retweet = Retweet.where(user_id: current_user.id)
+    tweets_retweet = current_user.retweets.eager_load(:user, :tweet)
     @tweets_retweet = Kaminari.paginate_array(tweets_retweet).page(params[:page]).per(10)
 
-    comments = Comment.where(user_id: current_user.id)
+    comments = current_user.comments.eager_load(:user, :tweet)
     @comments = Kaminari.paginate_array(comments).page(params[:page]).per(10)
   end
 end

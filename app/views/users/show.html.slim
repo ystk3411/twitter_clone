@@ -61,44 +61,20 @@ div.container.d-flex.h-100.text-white.box
       div.tab-content
           div#tweet-tab-pane.tab-pane.active.fade.show  aria-labelledby="tweet-tab" tabindex="0" role="tabpanel"
             - if current_user
-              - @tweets.each do |tweet|
-                div.d-flex.border-bottom.p-2.gap-2
-                  = link_to image_tag("twitter_logo.jpg",size:"40x40",class:"rounded-circle") ,""
-                  div.w-100.flex-column
-                    = tweet.user.name
-                    br
-                    = tweet.content
+              = render partial: "layouts/tab_data1", collection: @tweets
               = paginate @tweets, theme: 'bootstrap-5'
           div#retweet-tab-pane.tab-pane.fade aria-labelledby="retweet-tab" tabindex="0" role="tabpanel"
             - if current_user
-              - @tweets_retweet.each do |tweet|
-                div.d-flex.border-bottom.p-2.gap-2
-                  = link_to image_tag("twitter_logo.jpg",size:"40x40",class:"rounded-circle") ,""
-                  div.w-100.flex-column
-                    = tweet.user.name
-                    br
-                    = tweet.content
-              = paginate @tweets, theme: 'bootstrap-5'
+              = render partial: "layouts/tab_data2", collection: @tweets_retweet
+              = paginate @tweets_retweet, theme: 'bootstrap-5'
           div#comment-tab-pane.tab-pane.fade.show  aria-labelledby="commnet-tab" tabindex="0" role="tabpanel"
             - if current_user
-              - @comments.each do |comment|
-                div.d-flex.border-bottom.p-2.gap-2
-                  = link_to image_tag("twitter_logo.jpg",size:"40x40",class:"rounded-circle") ,""
-                  div.w-100.flex-column
-                    = comment.user.name
-                    br
-                    = comment.content
-              = paginate @tweets, theme: 'bootstrap-5'
+              = render partial: "layouts/tab_data2", collection: @comments
+              = paginate @comments, theme: 'bootstrap-5'
           div#like-tab-pane.tab-pane.fade aria-labelledby="like-tab" tabindex="0" role="tabpanel"
             - if current_user
-              - @tweets_like.each do |tweet|
-                div.d-flex.border-bottom.p-2.gap-2
-                  = link_to image_tag("twitter_logo.jpg",size:"40x40",class:"rounded-circle") ,""
-                  div.w-100.flex-column
-                    = tweet.user.name
-                    br
-                    = tweet.content
-              = paginate @tweets, theme: 'bootstrap-5'
+              = render partial: "layouts/tab_data2", collection: @tweets_like
+              = paginate @tweets_like, theme: 'bootstrap-5'
   div.w-25.h-100.border-start.sticky-top
 
 
