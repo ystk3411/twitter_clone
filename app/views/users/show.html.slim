@@ -69,7 +69,7 @@ div.container.d-flex.h-100.text-white.box
               = paginate @tweets_retweet, theme: 'bootstrap-5'
           div#comment-tab-pane.tab-pane.fade.show  aria-labelledby="commnet-tab" tabindex="0" role="tabpanel"
             - if current_user
-              = render partial: "layouts/tab_data2", collection: @comments
+              = render partial: "layouts/tab_data1", collection: @comments
               = paginate @comments, theme: 'bootstrap-5'
           div#like-tab-pane.tab-pane.fade aria-labelledby="like-tab" tabindex="0" role="tabpanel"
             - if current_user
