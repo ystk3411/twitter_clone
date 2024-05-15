@@ -9,16 +9,14 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 10.times do |n|
-  User.create!(
-    email: "test#{n + 1}@test.com",
-    name: "テストユーザー#{n + 1}",
-    password: 'testhoge',
-    telephone_number: 0o0000000000,
-    birth_day: '2024-04-14'
+  Retweet.create!(
+    tweet_id: n + 1,
+    user_id: 1
   )
 
-  Tweet.create!(
-    content: "test#{n + 1}",
-    user_id: 1 + n
+  Comment.create!(
+    content: "comment#{n + 1}",
+    tweet_id: n + 1,
+    user_id: 1
   )
 end

@@ -3,6 +3,12 @@
 class User < ApplicationRecord
   devise :omniauthable, omniauth_providers: %i[github]
   validates :uid, uniqueness: { scope: :provider }, if: -> { uid.present? }
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable,
+         :confirmable, :lockable, :timeoutable,
+         :trackable, :omniauthable, omniauth_providers: %i[github]
   has_many :tweets, dependent: :destroy
   has_many :active_relationships, class_name: 'Relationship',
                                   foreign_key: 'follower_id',
@@ -14,12 +20,9 @@ class User < ApplicationRecord
                                    inverse_of: :followed
   has_many :following, through: :active_relationships,  source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable,
-         :confirmable, :lockable, :timeoutable,
-         :trackable, :omniauthable, omniauth_providers: %i[github]
+  has_many :likes, dependent: :destroy
+  has_many :retweets, dependent: :destroy
+  has_many :comments, dependent: :destroy
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create! do |user|
