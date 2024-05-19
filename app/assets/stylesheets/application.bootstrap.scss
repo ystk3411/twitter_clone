@@ -1,6 +1,10 @@
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
 
+.btn{
+  border-radius: 30px
+}
+
 .btn-twitter{
   background-color: #00acee;
   border-radius: 30px;
