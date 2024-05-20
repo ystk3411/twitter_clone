@@ -18,22 +18,29 @@ div.container.d-flex.h-100.text-white.box
       - else  
         = link_to image_tag("twitter_logo.jpg",size:"40x40",class:"rounded-circle") ,new_user_session_path
       div.w-100.flex-column
-        = form_with url:""  do |f|
-          = f.text_field :tweet, class: "form-control bg-dark border-0 text-white fs-4", placeholder: "いまどうしてる?"
+        = form_with model:@tweet  do |f|
+          = f.text_field :content, class: "form-control bg-dark border-0 text-white fs-4", placeholder: "いまどうしてる?"
           div.w-100.d-flex
             div.d-flex.w-50.gap-4.p-3 style="color:#00acee;"
-              i.bi.bi-image
+              = f.label :image,class:"bi bi-image"
+                = f.file_field :image,style:"display:none"
             div.w-100.p-2.d-flex.justify-content-end
-              = link_to 'ツイートする',"#",class:"btn btn-twitter text-white"
+              - if current_user
+                = f.submit "ツイートする",class:"btn btn-twitter text-white"
+              - else
+                = link_to "ツイートする",new_user_session_path,class:"btn btn-twitter text-white"
     div.tab-content
           div#recommend-tab-pane.tab-pane.active.fade.show  aria-labelledby="recommend-tab" tabindex="0" role="tabpanel"
             - @tweets.each do |tweet|
               div.d-flex.border-bottom.p-2.gap-2
                 = link_to image_tag("twitter_logo.jpg",size:"40x40",class:"rounded-circle") ,""
                 div.w-100.flex-column
-                  = tweet.user.name
-                  br
+                  div.fw-bold
+                    = tweet.user.name
                   = tweet.content
+                  - if tweet.image.attached?
+                    div.w-100
+                      = image_tag(tweet.image,height:"300px",width:"100%",class:"rounded-4 border border-1 border-light")
             = paginate @tweets, theme: 'bootstrap-5'
           div#follow-tab-pane.tab-pane.fade aria-labelledby="follow-tab" tabindex="0" role="tabpanel"
             - if current_user

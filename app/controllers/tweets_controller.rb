@@ -2,6 +2,8 @@
 
 class TweetsController < ApplicationController
   def index
+    @tweet = Tweet.new
+
     tweets = Tweet.all.order(created_at: :desc)
     @tweets = Kaminari.paginate_array(tweets).page(params[:page]).per(10)
 
@@ -12,4 +14,19 @@ class TweetsController < ApplicationController
   end
 
   def show; end
+
+  def create
+    tweet = Tweet.new(tweet_params)
+    tweet.user_id = current_user.id
+    if tweet.save
+      redirect_to root_path,notice:"投稿しました"
+    else
+      redirect_to root_path,error:"投稿に失敗しました"
+    end
+  end
+
+  private
+  def tweet_params
+    params.require(:tweet).permit(:content,:image,:user_id)
+  end
 end
