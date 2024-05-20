@@ -17,5 +17,28 @@ class UsersController < ApplicationController
 
     comments = current_user.comments.eager_load(:user, :tweet)
     @comments = Kaminari.paginate_array(comments).page(params[:page]).per(10)
+
+    @user = current_user
+  end
+
+  def edit
+    return unless current_user
+
+    @user = current_user
+  end
+
+  def update
+    if current_user.update(user_params)
+      redirect_to user_path(current_user), notice: 'プロフィールを更新しました'
+    else
+      flash.now[:danger] = 'プロフィールの更新に失敗しました'
+      render :edit
+    end
+  end
+
+  private
+
+  def user_params
+    params.require(:user).permit(:name, :comment, :header, :profile)
   end
 end
