@@ -2,7 +2,7 @@
 
 class TweetsController < ApplicationController
   def index
-    @tweet = Tweet.new
+    @tweet = current_user.tweets.build(tweet_params)
 
     tweets = Tweet.all.order(created_at: :desc)
     @tweets = Kaminari.paginate_array(tweets).page(params[:page]).per(10)
@@ -28,6 +28,6 @@ class TweetsController < ApplicationController
   private
 
   def tweet_params
-    params.require(:tweet).permit(:content, :image, :user_id)
+    params.require(:tweet).permit(:content, :image)
   end
 end
