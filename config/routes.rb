@@ -7,9 +7,9 @@ Rails.application.routes.draw do
   resources :tasks
   resources :users
   resources :tweets do
-    resources :tweets, only: %w[create] 
+    resources :tweets, only: %w[create]
   end
-  
+
   mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

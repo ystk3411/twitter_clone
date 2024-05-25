@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class TweetsController < ApplicationController
-
   def index
     @tweet = Tweet.new
 
@@ -19,18 +18,18 @@ class TweetsController < ApplicationController
     @comment = Tweet.new
     @comments = @tweet.comments
 
-    return unless current_user 
+    return unless current_user
 
-    unless ReadCount.find_by(user_id: current_user.id, tweet_id: @tweet.id)
-      current_user.read_counts.create(tweet_id: @tweet.id)
-    end
+    return if ReadCount.find_by(user_id: current_user.id, tweet_id: @tweet.id)
+
+    current_user.read_counts.create(tweet_id: @tweet.id)
   end
 
   def create
     tweet = current_user.tweets.build(tweet_params)
     tweet.user_id = current_user.id
     tweet.comment_id = params[:tweet_id] if params[:tweet_id]
-    
+
     if tweet.save
       if tweet.comment_id
         redirect_to request.referer, notice: '返信をツイートしました'
