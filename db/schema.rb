@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_15_134014) do
+ActiveRecord::Schema[7.0].define(version: 2024_05_25_102631) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -42,14 +42,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_15_134014) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "comments", force: :cascade do |t|
-    t.text "content"
-    t.integer "user_id"
-    t.integer "tweet_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "likes", force: :cascade do |t|
     t.integer "user_id"
     t.integer "tweet_id"
@@ -58,6 +50,16 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_15_134014) do
     t.index ["tweet_id"], name: "index_likes_on_tweet_id"
     t.index ["user_id", "tweet_id"], name: "index_likes_on_user_id_and_tweet_id", unique: true
     t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
+  create_table "read_counts", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "tweet_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "comment_id"
+    t.index ["tweet_id"], name: "index_read_counts_on_tweet_id"
+    t.index ["user_id"], name: "index_read_counts_on_user_id"
   end
 
   create_table "relationships", force: :cascade do |t|
@@ -93,6 +95,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_15_134014) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "comment_id"
     t.index ["user_id"], name: "index_tweets_on_user_id"
   end
 
@@ -121,12 +124,13 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_15_134014) do
     t.datetime "updated_at", null: false
     t.string "provider"
     t.string "uid"
-    t.string "comment"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "read_counts", "tweets"
+  add_foreign_key "read_counts", "users"
   add_foreign_key "tweets", "users"
 end
