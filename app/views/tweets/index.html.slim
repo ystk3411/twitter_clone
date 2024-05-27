@@ -51,9 +51,10 @@ div.container.d-flex.h-100.text-white.box
                         bi.bi-repeat.text-secondary
                           span.ms-2
                             = tweet.retweets.count
-                        bi.bi-heart.text-secondary
-                          span.ms-2
-                            = tweet.likes.count
+                        = link_to tweet_likes_path(tweet),data: {"turbo-method": :post},remote: true,style:"text-decoration: none;"
+                          bi.bi-heart.text-secondary
+                            span.ms-2
+                              = tweet.likes.count
                         bi.bi-upload.text-secondary
             = paginate @tweets, theme: 'bootstrap-5'
           div#follow-tab-pane.tab-pane.fade aria-labelledby="follow-tab" tabindex="0" role="tabpanel"
