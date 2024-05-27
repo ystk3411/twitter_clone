@@ -16,7 +16,7 @@ class TweetsController < ApplicationController
   def show
     @tweet = Tweet.find(params[:id])
     @comment = Tweet.new
-    @comments = @tweet.comments
+    @comments = @tweet.comments.eager_load(:user)
 
     return unless current_user
 
