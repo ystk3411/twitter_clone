@@ -19,21 +19,21 @@ div.container.d-flex.h-100.text-white.box
                   div.fw-bold.p-2
                     = current_user.name
           div.mt-3
-            = @tweet.content
-            - if @tweet.image.attached?
+            = @comment.content
+            - if @comment.image.attached?
               div.mt-3
                 = image_tag(@tweet.image,height:"300px",width:"100%",class:"rounded-4 border border-1 border-light")
             div.mt-3.text-secondary
-              = "#{@tweet.created_at.strftime('%H:%M')}・#{@tweet.created_at.strftime('%Y年%m月%d日')}・"
+              = "#{@comment.created_at.strftime('%H:%M')}・#{@comment.created_at.strftime('%Y年%m月%d日')}・"
               span.text-white
-                = @tweet.read_counts.count
+                = @comment.read_counts.count
               span.ms-2
                 | 件の表示
           div.border-top.mt-3
             div.d-flex.justify-content-around.mt-3
               bi.bi-chat.text-secondary
                 span.ms-2
-                  = @tweet.comments.count
+                  = @comment.tweet
               bi.bi-repeat.text-secondary
                 span.ms-2
                   = @tweet.retweets.count
@@ -48,7 +48,7 @@ div.container.d-flex.h-100.text-white.box
               - else  
                 = link_to image_tag("twitter_logo.jpg",size:"40x40",class:"rounded-circle") ,new_user_session_path
               div.w-100.flex-column
-                = form_with model:@comment,url:tweet_tweets_path(@tweet)  do |f|
+                = form_with model:@comment,url:tweet_comments_path(@tweet)  do |f|
                   = f.text_field :content, class: "form-control bg-dark border-0 text-white fs-4", placeholder: "返信をツイートする"
                   div.w-100.d-flex
                     div.d-flex.w-50.gap-4.p-3 style="color:#00acee;"
@@ -61,11 +61,10 @@ div.container.d-flex.h-100.text-white.box
                         = link_to "ツイートする",new_user_session_path,class:"btn btn-twitter text-white"
     div
       - @comments.each do |comment|
-          div.border-bottom
-            div.d-flex.p-4.gap-2
+            div.d-flex.border-bottom.p-4.gap-2
               = link_to image_tag(comment.user.profile,size:"40x40",class:"rounded-circle")
               div.w-100
-                = link_to tweet_path(comment.id),style:"text-decoration: none;" do
+                = link_to tweet_comment_path(comment.tweet_id,comment),style:"text-decoration: none;" do
                   div.w-100.flex-column.text-white
                     div.fw-bold
                       = comment.user.name
@@ -77,7 +76,7 @@ div.container.d-flex.h-100.text-white.box
                   div.d-flex.justify-content-around.mt-3
                     bi.bi-chat.text-secondary
                       span.ms-2
-                        = comment.comments.count
+                        = @tweet.comments.count
                     bi.bi-repeat.text-secondary
                       span.ms-2
                         = @tweet.retweets.count
