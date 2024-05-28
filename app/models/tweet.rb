@@ -4,7 +4,8 @@ class Tweet < ApplicationRecord
   belongs_to :user
   has_many :likes, dependent: :destroy
   has_many :retweets, dependent: :destroy
-  has_many :comments, class_name: 'Tweet', foreign_key: 'comment_id', dependent: :destroy
+  has_many :comments, class_name: 'Tweet', foreign_key: 'comment_id', dependent: :destroy, inverse_of: :tweet
+  belongs_to :tweet, class_name: 'Tweet', foreign_key: 'comment_id', optional: true, inverse_of: :comments
   has_many :read_counts, dependent: :destroy
   validates :content, { length: { maximum: 140 } }
   has_one_attached :image
