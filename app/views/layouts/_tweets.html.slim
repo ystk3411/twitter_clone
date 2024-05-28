@@ -20,7 +20,7 @@ div.d-flex.border-bottom.p-2.gap-2
         - if current_user
           - if tweet.liked_by?(current_user)
               = link_to tweet_like_path(tweet,tweet.likes),data: {"turbo-method": :delete},remote: true,style:"text-decoration: none;"
-                bi.bi-heart.text-secondary
+                bi.bi-heart.pink
                   span.ms-2
                     = tweet.likes.count
           - else
