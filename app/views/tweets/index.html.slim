@@ -14,7 +14,7 @@ div.container.d-flex.h-100.text-white.box
               | フォロー中
     div.d-flex.border-bottom.p-2.gap-2
       - if current_user
-        = link_to image_tag("twitter_logo.jpg",size:"40x40",class:"rounded-circle") ,user_path(current_user.id)
+        = link_to image_tag(current_user.profile,size:"40x40",class:"rounded-circle") ,user_path(current_user.id)
       - else  
         = link_to image_tag("twitter_logo.jpg",size:"40x40",class:"rounded-circle") ,new_user_session_path
       div.w-100.flex-column
@@ -32,56 +32,12 @@ div.container.d-flex.h-100.text-white.box
     div.tab-content
           div#recommend-tab-pane.tab-pane.active.fade.show  aria-labelledby="recommend-tab" tabindex="0" role="tabpanel"
             - @tweets.each do |tweet|
-                div.d-flex.border-bottom.p-2.gap-2
-                  = link_to image_tag("twitter_logo.jpg",size:"40x40",class:"rounded-circle")
-                  div.w-100
-                    = link_to tweet_path(tweet),style:"text-decoration: none;" do
-                      div.w-100.flex-column.text-white
-                        div.fw-bold
-                          = tweet.user.name
-                        = tweet.content
-                        - if tweet.image.attached?
-                          div.w-100
-                            = image_tag(tweet.image,height:"300px",width:"100%",class:"rounded-4 border border-1 border-light")
-                    div.mt-3
-                      div.d-flex.justify-content-around.mt-3
-                        bi.bi-chat.text-secondary
-                          span.ms-2
-                            = tweet.comments.count
-                        bi.bi-repeat.text-secondary
-                          span.ms-2
-                            = tweet.retweets.count
-                        bi.bi-heart.text-secondary
-                          span.ms-2
-                            = tweet.likes.count
-                        bi.bi-upload.text-secondary
+             = render partial:"layouts/tweets",locals: {tweet: tweet} 
             = paginate @tweets, theme: 'bootstrap-5'
           div#follow-tab-pane.tab-pane.fade aria-labelledby="follow-tab" tabindex="0" role="tabpanel"
             - if current_user
               - @tweets_following.each do |tweet|
-                div.d-flex.border-bottom.p-2.gap-2
-                  = link_to image_tag("twitter_logo.jpg",size:"40x40",class:"rounded-circle")
-                  div.w-100
-                    = link_to tweet_path(tweet),style:"text-decoration: none;" do
-                      div.w-100.flex-column.text-white
-                        div.fw-bold
-                          = tweet.user.name
-                        = tweet.content
-                        - if tweet.image.attached?
-                          div.w-100
-                            = image_tag(tweet.image,height:"300px",width:"100%",class:"rounded-4 border border-1 border-light")
-                    div.mt-3
-                      div.d-flex.justify-content-around.mt-3
-                        bi.bi-chat.text-secondary
-                          span.ms-2
-                            = tweet.comments.count
-                        bi.bi-repeat.text-secondary
-                          span.ms-2
-                            = tweet.retweets.count
-                        bi.bi-heart.text-secondary
-                          span.ms-2
-                            = tweet.likes.count
-                        bi.bi-upload.text-secondary
+                = render partial:"layouts/tweets",locals: {tweet: tweet}
               = paginate @tweets_following, theme: 'bootstrap-5'
   div.w-25.h-100.border-start.sticky-top
       
