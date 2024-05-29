@@ -11,7 +11,7 @@ class LikesController < ApplicationController
   end
 
   def destroy
-    like = current_user.likes.eager_load(:tweet).find_by(tweet_id: params[:tweet_id])
+    like = current_user.likes.find_by(tweet_id: params[:tweet_id])
     like.destroy
     redirect_to request.referer
   end
