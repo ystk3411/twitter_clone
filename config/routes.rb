@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :users
   resources :tweets do
     resources :likes, only: %w[create destroy]
+    resources :retweets, only: %w[create destroy]
     resources :tweets, only: %w[create]
   end
 
