@@ -4,8 +4,7 @@ class RetweetsController < ApplicationController
   before_action :authenticate_user!
 
   def create
-    retweet = current_user.retweets.build
-    retweet.tweet_id = params[:tweet_id]
+    retweet = current_user.retweets.build(tweet_id: params[:tweet_id])
     retweet.save
     redirect_to request.referer
   end
