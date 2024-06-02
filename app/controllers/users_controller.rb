@@ -15,7 +15,7 @@ class UsersController < ApplicationController
     tweets_retweet = current_user.retweets.eager_load(:user, :tweet)
     @tweets_retweet = Kaminari.paginate_array(tweets_retweet).page(params[:page]).per(10)
 
-    comments = current_user.tweets.eager_load(:user, :tweet).where.not(comment_id:nil)
+    comments = current_user.tweets.eager_load(:user, :tweet).where.not(comment_id: nil)
     @comments = Kaminari.paginate_array(comments).page(params[:page]).per(10)
 
     @user = current_user
