@@ -14,9 +14,22 @@ div.d-flex.border-bottom.p-2.gap-2
         bi.bi-chat.text-secondary
           span.ms-2
             = tweet.comments.count
-        bi.bi-repeat.text-secondary
-          span.ms-2
-            = tweet.retweets.count
+        - if current_user
+          - if tweet.retweeted_by?(current_user)
+              = link_to tweet_retweet_path(tweet,tweet.retweets),data: {"turbo-method": :delete},remote: true,style:"text-decoration: none;"
+                bi.bi-repeat.green
+                  span.ms-2
+                    = tweet.retweets.count
+          - else
+              = link_to tweet_retweets_path(tweet),data: {"turbo-method": :post},remote: true,style:"text-decoration: none;"
+                bi.bi-repeat.text-secondary
+                  span.ms-2
+                    = tweet.retweets.count
+        - else
+          = link_to new_user_session_path,style:"text-decoration: none;"
+            bi.bi-repeat.text-secondary
+              span.ms-2
+                = tweet.retweets.count
         - if current_user
           - if tweet.liked_by?(current_user)
               = link_to tweet_like_path(tweet,tweet.likes),data: {"turbo-method": :delete},remote: true,style:"text-decoration: none;"
