@@ -11,6 +11,8 @@ class TweetsController < ApplicationController
 
     tweets_following = Tweet.where(user_id: current_user.active_relationships.pluck(:followed_id))
     @tweets_following = Kaminari.paginate_array(tweets_following).page(params[:page]).per(10)
+
+    @relationship = current_user.active_relationships.build
   end
 
   def show
