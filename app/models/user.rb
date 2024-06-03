@@ -23,6 +23,7 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :retweets, dependent: :destroy
   has_many :read_counts, dependent: :destroy
+  has_many :book_marks, dependent: :destroy 
   has_one_attached :header
   has_one_attached :profile
 

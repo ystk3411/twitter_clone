@@ -6,11 +6,13 @@ Rails.application.routes.draw do
              controllers: { omniauth_callbacks: 'users/omniauth_callbacks', registrations: 'users/registrations' }
   resources :tasks
   resources :users
+  get 'bookmarks' => 'bookmarks#index'
   resources :tweets do
     resources :likes, only: %w[create destroy]
     resources :retweets, only: %w[create destroy]
     resources :tweets, only: %w[create]
     resources :relationships, only: %w[create destroy]
+    resources :bookmarks, only: %w[create destroy]
   end
 
   mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
