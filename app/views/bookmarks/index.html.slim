@@ -1,0 +1,20 @@
+div.container.d-flex.h-100.text-white.box
+  div.w-25.d-flex.flex-column.border-end.h-100.sticky-top
+    = render "layouts/side_bar"
+  div.w-50
+    h3.p-3
+      | ブックマーク
+    div.d-flex.flex-column.justify-content-center
+      - if @bookmarks.exists?
+        = render partial: "layouts/tweets_bookmarked",collection:@bookmarks,as:"bookmark"
+      - else
+        div.p-5
+          h1.fw-bold
+            |後で参照できるように
+            br
+              |ポストを保存する
+          h5.text-secondary
+            |ポストをブックマークに追加すると、後で簡単に
+            br
+                |見つけられます。
+  div.w-25.h-100.border-start.sticky-top

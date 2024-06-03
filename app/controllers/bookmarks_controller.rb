@@ -2,6 +2,7 @@ class BookmarksController < ApplicationController
   before_action :authenticate_user!
 
   def index
+    @bookmarks = current_user.book_marks.eager_load(:user, :tweet)
   end
 
   def create

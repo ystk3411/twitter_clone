@@ -6,7 +6,7 @@ Rails.application.routes.draw do
              controllers: { omniauth_callbacks: 'users/omniauth_callbacks', registrations: 'users/registrations' }
   resources :tasks
   resources :users
-  get 'bookmarks' => 'bookmarks#index'
+  resources :bookmarks, only: %w[index]
   resources :tweets do
     resources :likes, only: %w[create destroy]
     resources :retweets, only: %w[create destroy]
