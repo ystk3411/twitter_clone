@@ -31,13 +31,11 @@ div.container.d-flex.h-100.text-white.box
                 = link_to "ツイートする",new_user_session_path,class:"btn btn-twitter text-white"
     div.tab-content
           div#recommend-tab-pane.tab-pane.active.fade.show  aria-labelledby="recommend-tab" tabindex="0" role="tabpanel"
-            - @tweets.each do |tweet|
-             = render partial:"layouts/tweets",locals: {tweet: tweet} 
+            = render partial: "layouts/tweets",collection:@tweets,as: "tweet"
             = paginate @tweets, theme: 'bootstrap-5'
           div#follow-tab-pane.tab-pane.fade aria-labelledby="follow-tab" tabindex="0" role="tabpanel"
             - if current_user
-              - @tweets_following.each do |tweet|
-                = render partial:"layouts/tweets",locals: {tweet: tweet}
+              = render partial: "layouts/tweets",collection:@tweets_following,as: "tweet"
               = paginate @tweets_following, theme: 'bootstrap-5'
   div.w-25.h-100.border-start.sticky-top
       

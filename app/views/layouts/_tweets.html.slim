@@ -1,11 +1,16 @@
 div.d-flex.border-bottom.p-2.gap-2
-  = link_to image_tag(tweet.user.profile,size:"40x40",class:"rounded-circle") if tweet.user.profile.attached?
+  - if tweet.user.profile.attached?
+    = link_to image_tag(tweet.user.profile,size:"40x40",class:"rounded-circle") ,user_path(current_user.id)
+  - else  
+    = link_to image_tag("twitter_logo.jpg",size:"40x40",class:"rounded-circle") ,new_user_session_path
   div.w-100
-    = link_to tweet_path(tweet),style:"text-decoration: none;" do
-      div.w-100.flex-column.text-white
+    div.w-100.flex-column
+      div.d-flex.justify-content-between
         div.fw-bold
           = tweet.user.name
-        = tweet.content
+      = link_to tweet_path(tweet),style:"text-decoration: none;" do
+        div.w-100.text-white
+          = tweet.content
         - if tweet.image.attached?
           div.w-100
             = image_tag(tweet.image,height:"300px",width:"100%",class:"rounded-4 border border-1 border-light")

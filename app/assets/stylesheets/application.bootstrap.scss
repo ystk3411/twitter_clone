@@ -33,3 +33,50 @@
 .pink{color:#d63384;}
 
 .green{color:#20c997}
+
+.dropdown input[type="checkbox"] {
+  display: none;
+}
+
+.dropdown label {
+  cursor: pointer;
+}
+
+.dropdown .submenu {
+  display: none;
+}
+
+.dropdown input[type="checkbox"]:checked + label + .submenu {
+  display: block;
+}
+
+.dropdown label{
+  position:relative;
+  display:inline-block;
+
+
+  &:hover{
+    color:#fff;
+  }
+    &::after{
+    content:"\f107";
+    font-family: FontAwesome;
+    display: inline-block;
+    margin-right:5px;
+    position: absolute;
+    right:10px;
+    top:50%;
+    transform: translateY(-50%);
+    font-size:11px;
+  }
+}
+.submenu{
+  width: 200px;
+  background-color: black;
+  margin:8px 0 0;
+  padding:10px;
+  border:1px solid #2F4858;
+  list-style:none;
+  position: absolute;
+  top: 50px;
+}
