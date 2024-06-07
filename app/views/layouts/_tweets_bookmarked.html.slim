@@ -1,0 +1,66 @@
+div.d-flex.border-bottom.p-2.gap-2
+  - if bookmark.tweet.user.profile.attached?
+    = link_to image_tag(bookmark.tweet.user.profile,size:"40x40",class:"rounded-circle") ,user_path(bookmark.tweet.user.id)
+  - else  
+    = link_to image_tag("twitter_logo.jpg",size:"40x40",class:"rounded-circle") ,new_user_session_path
+  div.w-100
+    div.w-100.flex-column
+      div.d-flex.justify-content-between
+        div.fw-bold
+          = bookmark.tweet.user.name
+      = link_to tweet_path(bookmark.tweet),style:"text-decoration: none;" do
+        div.w-100.text-white
+          = bookmark.tweet.content
+        - if bookmark.tweet.image.attached?
+          div.w-100
+            = image_tag(bookmark.tweet.image,height:"300px",width:"100%",class:"rounded-4 border border-1 border-light")
+    div.mt-3
+      div.d-flex.justify-content-around.mt-3
+        bi.bi-chat.text-secondary
+          span.ms-2
+            = bookmark.tweet.comments.count
+        - if current_user
+          - if bookmark.tweet.retweeted_by?(current_user)
+              = link_to tweet_retweet_path(bookmark.tweet,bookmark.tweet.retweets),data: {"turbo-method": :delete},remote: true,style:"text-decoration: none;"
+                bi.bi-repeat.green
+                  span.ms-2
+                    = bookmark.tweet.retweets.count
+          - else
+              = link_to tweet_retweets_path(bookmark.tweet),data: {"turbo-method": :post},remote: true,style:"text-decoration: none;"
+                bi.bi-repeat.text-secondary
+                  span.ms-2
+                    = bookmark.tweet.retweets.count
+        - else
+          = link_to new_user_session_path,style:"text-decoration: none;"
+            bi.bi-repeat.text-secondary
+              span.ms-2
+                = bookmark.tweet.retweets.count
+        - if current_user
+          - if bookmark.tweet.liked_by?(current_user)
+              = link_to tweet_like_path(bookmark.tweet,bookmark.tweet.likes),data: {"turbo-method": :delete},remote: true,style:"text-decoration: none;"
+                bi.bi-heart.pink
+                  span.ms-2
+                    = bookmark.tweet.likes.count
+          - else
+              = link_to tweet_likes_path(bookmark.tweet),data: {"turbo-method": :post},remote: true,style:"text-decoration: none;"
+                bi.bi-heart.text-secondary
+                  span.ms-2
+                    = bookmark.tweet.likes.count
+        - else
+          = link_to new_user_session_path,style:"text-decoration: none;"
+            bi.bi-heart.text-secondary
+              span.ms-2
+                = bookmark.tweet.likes.count
+        bi.bi-bar-chart.text-secondary
+          span.ms-2
+            = bookmark.tweet.read_counts.count
+        - if current_user
+          - if bookmark.tweet.bookmarked_by?(current_user)
+              = link_to tweet_bookmark_path(bookmark.tweet,bookmark.tweet.book_marks),data: {"turbo-method": :delete},remote: true,style:"text-decoration: none;"
+                bi.bi-upload.blue
+          - else
+              = link_to tweet_bookmarks_path(bookmark.tweet),data: {"turbo-method": :post},remote: true,style:"text-decoration: none;"
+                bi.bi-upload.text-secondary
+        - else
+          = link_to new_user_session_path,style:"text-decoration: none;"
+            bi.bi-upload.text-secondary

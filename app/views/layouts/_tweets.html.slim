@@ -1,6 +1,6 @@
 div.d-flex.border-bottom.p-2.gap-2
   - if tweet.user.profile.attached?
-    = link_to image_tag(tweet.user.profile,size:"40x40",class:"rounded-circle") ,user_path(current_user.id)
+    = link_to image_tag(tweet.user.profile,size:"40x40",class:"rounded-circle") ,user_path(tweet.user.id)
   - else  
     = link_to image_tag("twitter_logo.jpg",size:"40x40",class:"rounded-circle") ,new_user_session_path
   div.w-100
@@ -54,4 +54,13 @@ div.d-flex.border-bottom.p-2.gap-2
         bi.bi-bar-chart.text-secondary
           span.ms-2
             = tweet.read_counts.count
-        bi.bi-upload.text-secondary
+        - if current_user
+          - if tweet.bookmarked_by?(current_user)
+              = link_to tweet_bookmark_path(tweet,tweet.book_marks),data: {"turbo-method": :delete},remote: true,style:"text-decoration: none;"
+                bi.bi-upload.blue
+          - else
+              = link_to tweet_bookmarks_path(tweet),data: {"turbo-method": :post},remote: true,style:"text-decoration: none;"
+                bi.bi-upload.text-secondary
+        - else
+          = link_to new_user_session_path,style:"text-decoration: none;"
+            bi.bi-upload.text-secondary
