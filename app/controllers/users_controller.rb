@@ -4,21 +4,19 @@ class UsersController < ApplicationController
   def index; end
 
   def show
-    return unless current_user
+    @user = User.find(params[:id])
 
-    tweets = current_user.tweets
+    tweets = @user.tweets
     @tweets = Kaminari.paginate_array(tweets).page(params[:page]).per(10)
 
-    tweets_like = current_user.likes.eager_load(:user, :tweet)
+    tweets_like = @user.likes.eager_load(:user, :tweet)
     @tweets_like = Kaminari.paginate_array(tweets_like).page(params[:page]).per(10)
 
-    tweets_retweet = current_user.retweets.eager_load(:user, :tweet)
+    tweets_retweet = @user.retweets.eager_load(:user, :tweet)
     @tweets_retweet = Kaminari.paginate_array(tweets_retweet).page(params[:page]).per(10)
 
-    comments = current_user.tweets.eager_load(:user, :tweet).where.not(comment_id: nil)
+    comments = @user.tweets.eager_load(:user, :tweet).where.not(comment_id: nil)
     @comments = Kaminari.paginate_array(comments).page(params[:page]).per(10)
-
-    @user = current_user
   end
 
   def edit

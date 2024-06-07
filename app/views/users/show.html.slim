@@ -6,43 +6,43 @@ div.container.d-flex.h-100.text-white.box
       h4.p-4
         = link_to "←",:back,class:"text-decoration-none text-white"
       div.p-2
-        -if current_user
           .h4
-            = current_user.name
+            = @user.name
           .text-secondary
             = "#{@tweets.count}件のツイート"
     div.w-100.h-50
       div.h-50
-        - if current_user.header.attached?
-          = image_tag(current_user.header,height:"100%",width:"100%")
+        - if @user.header.attached?
+          = image_tag(@user.header,height:"100%",width:"100%")
         - else
-          = link_to image_tag("twitter_logo.jpg",height:"100%",width:"100%")
+          = image_tag("twitter_logo.jpg",height:"100%",width:"100%")
       div.d-flex.flex-column.h-50.p-3
         div.d-flex.justify-content-between.h-25
           div.w-20 style="margin-top:-15%;"
-            - if current_user.profile.attached?
-              = link_to image_tag(current_user.profile,class:"rounded-circle border border-4 border-dark",height:"100%",width:"100%",alt:""),root_path
+            - if @user.profile.attached?
+              = image_tag(@user.profile,class:"rounded-circle border border-4 border-dark",height:"100%",width:"100%",alt:"")
             - else
-              = link_to image_tag("アイコン.jpg",class:"rounded-circle border border-4 border-dark",height:"100%",width:"100%")
-          div
-            = link_to "プロフィールを編集",edit_user_path(@user),class:"btn btn-outline-light", style:"border-radius: 30px;"
+              = image_tag("アイコン.jpg",class:"rounded-circle border border-4 border-dark",height:"100%",width:"100%")
+          - if current_user.id == @user.id
+            div
+              = link_to "プロフィールを編集",edit_user_path(@user),class:"btn btn-outline-light", style:"border-radius: 30px;"
         - if current_user
           div.h4
-            = current_user.name
+            = @user.name
           div
-            = current_user.comment
+            = @user.comment
           div.text-secondary
             i.bi.bi-calendar3.me-2 
-            = "#{current_user.created_at.strftime('%Y年%m月')}からTwitterを利用しています"
+            = "#{@user.created_at.strftime('%Y年%m月')}からTwitterを利用しています"
           div.d-flex
             div.me-3
               span
-                = current_user.active_relationships.count
+                = @user.active_relationships.count
               span.text-secondary.
                 | フォロー中
             div
               span
-                = current_user.passive_relationships.count
+                = @user.passive_relationships.count
               span.text-secondary.
                 | フォロワー
       ul.nav.nav-tabs.w-100.nav-justified.border-bottom
@@ -64,19 +64,15 @@ div.container.d-flex.h-100.text-white.box
                 | いいね
       div.tab-content
           div#tweet-tab-pane.tab-pane.active.fade.show  aria-labelledby="tweet-tab" tabindex="0" role="tabpanel"
-            - if current_user
               = render partial: "layouts/tab_data1", collection: @tweets
               = paginate @tweets, theme: 'bootstrap-5'
           div#retweet-tab-pane.tab-pane.fade aria-labelledby="retweet-tab" tabindex="0" role="tabpanel"
-            - if current_user
               = render partial: "layouts/tab_data2", collection: @tweets_retweet
               = paginate @tweets_retweet, theme: 'bootstrap-5'
           div#comment-tab-pane.tab-pane.fade.show  aria-labelledby="commnet-tab" tabindex="0" role="tabpanel"
-            - if current_user
               = render partial: "layouts/tab_data1", collection: @comments
               = paginate @comments, theme: 'bootstrap-5'
           div#like-tab-pane.tab-pane.fade aria-labelledby="like-tab" tabindex="0" role="tabpanel"
-            - if current_user
               = render partial: "layouts/tab_data2", collection: @tweets_like
               = paginate @tweets_like, theme: 'bootstrap-5'
   div.w-25.h-100.border-start.sticky-top
