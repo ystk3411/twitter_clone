@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   resources :tasks
   resources :users
   resources :bookmarks, only: %w[index]
+  resources :messages, only: %w[index create show]
+  resources :rooms, only: %w[create]
+  resources :relationships, only: %w[create destroy]
   resources :tweets do
     resources :likes, only: %w[create destroy]
     resources :retweets, only: %w[create destroy]

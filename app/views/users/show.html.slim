@@ -26,6 +26,19 @@ div.container.d-flex.h-100.text-white.box
           - if current_user.id == @user.id
             div
               = link_to "プロフィールを編集",edit_user_path(@user),class:"btn btn-outline-light", style:"border-radius: 30px;"
+          - else
+            - if current_user.following.find_by(id:@user.id)
+              div
+                - if @isRoom.present?
+                  = link_to  message_path(@roomId) do
+                    span.bi.bi-envelope.me-3.btn.btn-outline-light 
+                -  else
+                  = link_to  rooms_path(id:@user.id), data: { "turbo-method": :post } do
+                    span.bi.bi-envelope.me-3.btn.btn-outline-light 
+                = link_to "#{@user.name}さんのフォローを解除", relationship_path(@user),class:"btn btn-outline-danger", style:"border-radius: 30px;", data: { "turbo-method": :delete },remote: true
+            - else
+              div
+                = link_to "#{@user.name}さんをフォロー", relationships_path(id:@user.id),class:"btn btn-outline-light", style:"border-radius: 30px;", data: { "turbo-method": :post },remote: true
         - if current_user
           div.h4
             = @user.name
