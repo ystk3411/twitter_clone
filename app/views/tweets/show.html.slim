@@ -32,8 +32,8 @@ div.container.d-flex.h-100.text-white.box
                         = link_to "#{@tweet.user.name}さんをフォロー", tweet_relationships_path(@tweet),class:"text-white",style:"text-decoration: none;", data: { "turbo-method": :post },remote: true
                   div.offcanvas-body.text-center.d-flex.align-items-center
                     div.bi.bi-envelope
-                      - if @isRoom.present?
-                        = link_to  message_path(@roomId),style:"text-decoration: none;",class:"text-white" do
+                      - if @is_room.present?
+                        = link_to  message_path(@room_id),style:"text-decoration: none;",class:"text-white" do
                           |メッセージを送る 
                       -  else
                         = link_to  rooms_path(id:@tweet.user.id),style:"text-decoration: none;",class:"text-white", data: { "turbo-method": :post } do

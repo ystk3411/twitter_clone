@@ -5,8 +5,8 @@ div.container.d-flex.h-100.text-white.box
     h3.p-3
       | メッセージ
     div.d-flex.flex-column.justify-content-center
-      - if @anotherEntries
-        - @anotherEntries.each do |message|
+      - if @another_entries
+        - @another_entries.each do |message|
           div.d-flex.border-bottom.p-2.gap-2
             - if message.user.profile.attached?
               = link_to image_tag(message.user.profile,size:"40x40",class:"rounded-circle") ,user_path(bookmark.tweet.user.id)

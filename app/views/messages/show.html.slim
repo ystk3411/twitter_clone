@@ -18,7 +18,7 @@ div.container.d-flex.h-100.text-white.box
                   = message.user.name
   div.vh-100.w-50.border-start.d-flex.flex-column.p-3.overflow-scroll
     h3
-      = @anotherEntrie.user.name
+      = @another_entry.user.name
     div.mb-auto.w-100
       -  @messages.each do |message|
         - if message.user.id == current_user.id
