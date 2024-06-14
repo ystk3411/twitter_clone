@@ -22,12 +22,12 @@ class TweetsController < ApplicationController
     @comment = Tweet.new
     @comments = @tweet.comments.eager_load(:user)
 
-    @current_user_entry = Entry.where(user_id: current_user.id)
-    @user_entry = Entry.where(user_id: @tweet.user.id)
+    current_user_room_ids = @current_user_entry.pluck(:room_id)
+    user_room_ids = @user_entry.pluck(:room_id)
 
     unless @tweet.user.id == current_user.id
-      @current_user_entry.each do |cu|
-        @user_entry.each do |u|
+      current_user_room_ids.each do |cu|
+        user_room_ids.each do |u|
           if cu.room_id == u.room_id
             @is_room = true
             @room_id = cu.room_id
