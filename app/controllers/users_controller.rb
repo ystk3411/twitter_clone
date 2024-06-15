@@ -19,23 +19,21 @@ class UsersController < ApplicationController
     comments = @user.tweets.eager_load(:user, :tweet).where.not(comment_id: nil)
     @comments = Kaminari.paginate_array(comments).page(params[:page]).per(10)
 
-    current_user_room_ids = @current_user_entry.pluck(:room_id)
-    user_room_ids = @user_entry.pluck(:room_id)
+    current_user_entry = Entry.where(user_id: current_user.id)
+    user_entry = Entry.where(user_id: @user.id)
+    current_user_room_ids = current_user_entry.pluck(:room_id)
+    user_room_ids = user_entry.pluck(:room_id)
 
     return if @user.id == current_user.id
 
-    current_user_room_ids.each do |cu|
-      user_room_ids.each do |u|
-        if cu.room_id == u.room_id
-          @id_room = true
-          @room_id = cu.room_id
-        end
-      end
+    if (current_user_room_ids & user_room_ids).present?
+      @is_room = true
+      @room_id = (current_user_room_ids & user_room_ids)
     end
-    return if @id_room
-
-    @room = Room.new
-    @entry = Entry.new
+    unless @is_room
+      @room = Room.new
+      @entry = Entry.new
+    end
   end
 
   def edit

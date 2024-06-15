@@ -29,8 +29,8 @@ div.container.d-flex.h-100.text-white.box
           - else
             - if current_user.following.find_by(id:@user.id)
               div
-                - if @isRoom.present?
-                  = link_to  message_path(@roomId) do
+                - if @is_room.present?
+                  = link_to  message_path(@room_id) do
                     span.bi.bi-envelope.me-3.btn.btn-outline-light 
                 -  else
                   = link_to  rooms_path(id:@user.id), data: { "turbo-method": :post } do
