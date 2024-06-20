@@ -25,21 +25,22 @@ class Tweet < ApplicationRecord
   end
 
   def create_notification_like!(current_user)
-     temp = Notification.where(['visitor_id = ? and visited_id = ? and tweet_id = ? and action_type = ? ', current_user.id,user_id, id, 'like'])
+    temp = Notification.where(['visitor_id = ? and visited_id = ? and tweet_id = ? and action_type = ? ',
+                               current_user.id, user_id, id, 'like'])
 
     return if temp.present?
 
-      notification = current_user.active_notifications.new(
+    notification = current_user.active_notifications.new(
       tweet_id: id,
       visited_id: user_id,
       action_type: 'like'
-      )
+    )
 
-      notification.checked = true if notification.visitor_id == notification.visited_id
-      notification.save if notification.valid?
+    notification.checked = true if notification.visitor_id == notification.visited_id
+    notification.save if notification.valid?
   end
 
-  def create_notification_comment!(current_user, tweet_id)
+  def create_notification_comment!(current_user, _tweet_id)
     temp_ids = Tweet.select(:user_id).where(comment_id: id).where.not(user_id: current_user.id).distinct
     temp_ids.each do |temp_id|
       save_notification_comment!(current_user, comment_id, temp_id['user_id'])
@@ -50,14 +51,12 @@ class Tweet < ApplicationRecord
   def save_notification_comment!(current_user, comment_id, visited_id)
     notification = current_user.active_notifications.new(
       tweet_id: id,
-      comment_id: comment_id,
-      visited_id: visited_id,
+      comment_id:,
+      visited_id:,
       action_type: 'comment'
     )
-    if notification.visitor_id == notification.visited_id
-      notification.checked = true
-    end
-    p notification.valid?
+    notification.checked = true if notification.visitor_id == notification.visited_id
+    Rails.logger.debug notification.valid?
     notification.save if notification.valid?
   end
 end

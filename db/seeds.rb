@@ -8,6 +8,6 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 User.all.each do |user|
-  tweet = user.tweets.create(content:"test")
-  user.passive_notifications.create(visitor_id: 1,tweet_id: tweet.id,action_type: "like")
+  tweet = user.tweets.create(content: 'test')
+  user.passive_notifications.create(visitor_id: 1, tweet_id: tweet.id, action_type: 'like')
 end
