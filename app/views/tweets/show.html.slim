@@ -13,9 +13,9 @@ div.container.d-flex.h-100.text-white.box
         div.h-50
           div.d-flex.gap-2
             - if @tweet.user.profile.attached?
-              = link_to image_tag(current_user.profile,size:"40x40",class:"rounded-circle"),root_path
+              = link_to image_tag(current_user.profile,size:"40x40",class:"rounded-circle"),user_path(@tweet.user)
             - else
-              = link_to image_tag("アイコン.jpg",size:"40x40",class:"rounded-circle")
+              = link_to image_tag("アイコン.jpg",size:"40x40",class:"rounded-circle"),user_path(@tweet.user)
             div.w-100
               = link_to "",style:"text-decoration: none;" do
                 div.w-100.flex-column.text-white
@@ -23,13 +23,21 @@ div.container.d-flex.h-100.text-white.box
                     = @tweet.user.name
             - if current_user.id != @tweet.user.id
               div.bi.bi-three-dots data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample"
-                div.offcanvas.position-absolute.top-50.start-50.translate-middle.bg-dark.border.border-1.border-light tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel" style="height:50px;"
+                div.offcanvas.position-absolute.top-50.start-50.translate-middle.bg-dark.border.border-1.border-light tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel" style="height:100px;"
                   div.offcanvas-body.text-center.d-flex.align-items-center
                     div.bi.bi-person-plus
                       - if current_user.following.find_by(id:@tweet.user.id)
                         = link_to "#{@tweet.user.name}さんのフォローを解除", tweet_relationship_path(@tweet,@tweet.user),class:"text-white",style:"text-decoration: none;", data: { "turbo-method": :delete },remote: true
                       - else
                         = link_to "#{@tweet.user.name}さんをフォロー", tweet_relationships_path(@tweet),class:"text-white",style:"text-decoration: none;", data: { "turbo-method": :post },remote: true
+                  div.offcanvas-body.text-center.d-flex.align-items-center
+                    div.bi.bi-envelope
+                      - if @is_room.present?
+                        = link_to  message_path(@room_id),style:"text-decoration: none;",class:"text-white" do
+                          |メッセージを送る 
+                      -  else
+                        = link_to  rooms_path(id:@tweet.user.id),style:"text-decoration: none;",class:"text-white", data: { "turbo-method": :post } do
+                          |メッセージを送る
           div.mt-3
             = @tweet.content
             - if @tweet.image.attached?
@@ -82,9 +90,9 @@ div.container.d-flex.h-100.text-white.box
           div.border-top.gap-2.mt-3
             div.d-flex.mt-3
               - if @tweet.user.profile.attached?
-                = link_to image_tag(current_user.profile,size:"40x40",class:"rounded-circle") ,user_path(current_user.id)
+                = link_to image_tag(current_user.profile,size:"40x40",class:"rounded-circle") ,user_path(@tweet.user)
               - else  
-                = link_to image_tag("twitter_logo.jpg",size:"40x40",class:"rounded-circle") ,new_user_session_path
+                = link_to image_tag("twitter_logo.jpg",size:"40x40",class:"rounded-circle") ,user_path(@tweet.user)
               div.w-100.flex-column
                 = form_with model:@comment,url:tweet_tweets_path(@tweet)  do |f|
                   = f.text_field :content, class: "form-control bg-dark border-0 text-white fs-4", placeholder: "返信をツイートする"

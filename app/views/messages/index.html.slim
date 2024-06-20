@@ -1,0 +1,19 @@
+div.container.d-flex.h-100.text-white.box
+  div.w-25.d-flex.flex-column.border-end.h-100.sticky-top
+    = render "layouts/side_bar"
+  div.w-25
+    h3.p-3
+      | メッセージ
+    div.d-flex.flex-column.justify-content-center
+      - if @another_entries
+        - @another_entries.each do |message|
+          div.d-flex.border-bottom.p-2.gap-2
+            - if message.user.profile.attached?
+              = link_to image_tag(message.user.profile,size:"40x40",class:"rounded-circle") ,user_path(bookmark.tweet.user.id)
+            - else  
+              = link_to image_tag("twitter_logo.jpg",size:"40x40",class:"rounded-circle") ,user_path(message.user)
+            div.w-100.d-flex.flex-column.justify-content-center
+              = link_to message_path(message.room),style:"text-decoration: none;" do
+                div.fw-bold.text-white
+                  = message.user.name
+  div.w-50.h-100.border-start.sticky-top

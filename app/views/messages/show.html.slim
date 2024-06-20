@@ -1,0 +1,41 @@
+div.container.d-flex.h-100.text-white.box
+  div.w-25.d-flex.flex-column.border-end.h-100.sticky-top
+    = render "layouts/side_bar"
+  div.w-25
+    h3.p-3
+      | メッセージ
+    div.d-flex.flex-column.justify-content-center
+      - if @anotherEntries
+        - @anotherEntries.each do |message|
+          div.d-flex.border-bottom.p-2.gap-2
+            - if message.user.profile.attached?
+              = link_to image_tag(message.user.profile,size:"40x40",class:"rounded-circle") ,user_path(bookmark.tweet.user.id)
+            - else  
+              = link_to image_tag("twitter_logo.jpg",size:"40x40",class:"rounded-circle") ,user_path(message.user)
+            div.w-100.d-flex.flex-column.justify-content-center
+              = link_to message_path(message.room),style:"text-decoration: none;" do
+                div.fw-bold.text-white
+                  = message.user.name
+  div.vh-100.w-50.border-start.d-flex.flex-column.p-3.overflow-scroll
+    h3
+      = @another_entry.user.name
+    div.mb-auto.w-100
+      -  @messages.each do |message|
+        - if message.user.id == current_user.id
+          div.d-flex.justify-content-end.mb-3.mt-3
+            div.fs-5.p-3.bg-info style="border-radius: 30px;"
+              = message.content
+          div.d-flex.justify-content-end.text-secondary
+            = message.created_at.strftime('%Y年%m月%d日%H時%M分')
+        - else
+          div.d-flex.justify-content-start.mb-3.mt-3
+            div.fs-5.p-3.bg-secondary.bg-opacity-50 style="border-radius: 30px;"
+              = message.content
+          div.d-flex.justify-content-start.text-secondary
+            = message.created_at.strftime('%Y年%m月%d日%H時%M分')
+    div.w-100
+      = form_with url:messages_path(id:@room.id),class:"w-100 d-flex" do |f|
+        = f.text_field :content, class:"form-control bg-dark border-0 text-white fs-4", placeholder: "新しいメッセージを作成"
+        = f.submit "送信",class:"btn btn-twitter text-white ms-2"
+      
+

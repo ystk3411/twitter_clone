@@ -2,7 +2,7 @@ div.d-flex.border-bottom.p-2.gap-2
   - if tweet.user.profile.attached?
     = link_to image_tag(tweet.user.profile,size:"40x40",class:"rounded-circle") ,user_path(tweet.user.id)
   - else  
-    = link_to image_tag("twitter_logo.jpg",size:"40x40",class:"rounded-circle") ,new_user_session_path
+    = link_to image_tag("twitter_logo.jpg",size:"40x40",class:"rounded-circle") ,user_path(tweet.user.id)
   div.w-100
     div.w-100.flex-column
       div.d-flex.justify-content-between
