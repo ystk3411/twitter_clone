@@ -84,13 +84,12 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_11_131752) do
   create_table "notifications", force: :cascade do |t|
     t.integer "visitor_id", null: false
     t.integer "visited_id", null: false
-    t.string "subject_type"
-    t.bigint "subject_id"
-    t.integer "action_type", null: false
+    t.integer "tweet_id"
+    t.integer "comment_id"
+    t.string "action_type", null: false
     t.boolean "checked", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["subject_type", "subject_id"], name: "index_notifications_on_subject"
   end
 
   create_table "read_counts", force: :cascade do |t|

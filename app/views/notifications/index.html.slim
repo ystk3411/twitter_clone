@@ -1,2 +1,54 @@
-h1 Notifications#index
-p Find me in app/views/notifications/index.html.slim
+div.container.d-flex.h-100.text-white.box
+  div.w-25.d-flex.flex-column.border-end.h-100.sticky-top
+    = render "layouts/side_bar"
+  div.w-50
+    h3.p-3
+      | 通知
+    div.d-flex.flex-column.justify-content-center
+      - if @notifications.exists?
+        - @notifications.each do |notification|
+          div.d-flex.flex-column.border-bottom
+            div.d-flex.p-2.gap-2
+              div.h-100.fs-3
+                - case notification.action_type
+                - when 'like'
+                  bi.bi-heart.pink
+                - when 'comment'
+                  bi.bi-chat
+                - when 'retweet'
+                  bi.bi-repeat.green
+              div.w-100
+                div.w-100.flex-column
+                  div.d-flex.flex-column
+                    div.fw-bold
+                      - if notification.visitor.profile.attached?
+                        = link_to image_tag(notification.visitor.profile,size:"40x40",class:"rounded-circle") ,user_path(notification.visitor.id)
+                      - else  
+                        = link_to image_tag("twitter_logo.jpg",size:"40x40",class:"rounded-circle") ,user_path(notification.visitor.id)
+                    div.mt-2
+                      - case notification.action_type
+                      - when 'like' then
+                        = notification.visitor.name
+                        = "さんが"
+                        = link_to tweet_path(notification.tweet) do
+                          = "あなたのツイート"
+                        = "にいいねしました"
+                      - when 'comment' then
+                        = notification.visitor.name
+                        = "さんが"
+                        = link_to tweet_path(notification.tweet) do
+                          = "あなたのツイート"
+                        = "にコメントしました"
+                      - when 'retweet' then
+                        = notification.visitor.name
+                        = "さんが"
+                        = link_to tweet_path(notification.tweet) do
+                          = "あなたのツイート"
+                        = "をリツイートしました"
+      - else
+        div.p-5
+          h1.fw-bold
+            |通知はまだ届いていません
+          h5.text-secondary
+            |いいねやリポストがあったときなど、通知がここに表示されます。
+  div.w-25.h-100.border-start.sticky-top

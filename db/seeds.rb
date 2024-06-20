@@ -7,16 +7,7 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
-
-10.times do |n|
-  Retweet.create!(
-    tweet_id: n + 1,
-    user_id: 1
-  )
-
-  Comment.create!(
-    content: "comment#{n + 1}",
-    tweet_id: n + 1,
-    user_id: 1
-  )
+User.all.each do |user|
+  tweet = user.tweets.create(content:"test")
+  user.passive_notifications.create(visitor_id: 1,tweet_id: tweet.id,action_type: "like")
 end

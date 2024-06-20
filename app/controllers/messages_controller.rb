@@ -4,14 +4,8 @@ class MessagesController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    current_entries = current_user.entries
-    my_room_ids = []
-
-    current_entries.each do |entry|
-      my_room_ids << entry.room.id
-    end
-
-    @another_entries = Entry.where(room_id: my_room_ids).where('user_id != ?', current_user.id)
+    my_room_ids = current_user.entries.pluck(:room_id)
+    @another_entries = Entry.where(room_id: my_room_ids).where.not(user_id: current_user.id)
   end
 
   def create
@@ -26,14 +20,9 @@ class MessagesController < ApplicationController
   end
 
   def show
-    current_entries = current_user.entries
-    my_room_ids = []
+    my_room_ids = current_user.entries.pluck(:room_id)
 
-    current_entries.each do |entry|
-      my_room_ids << entry.room.id
-    end
-
-    @another_entries = Entry.where(room_id: my_room_ids).where('user_id != ?', current_user.id)
+    @another_entries = Entry.where(room_id: my_room_ids).where.not(user_id: current_user.id)
     @room = Room.find(params[:id])
 
     if Entry.where(user_id: current_user.id, room_id: @room.id).present?
