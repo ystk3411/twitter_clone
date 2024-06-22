@@ -33,10 +33,6 @@ class TweetsController < ApplicationController
       @is_room = true
       @room_id = (current_user_room_ids & user_room_ids).first
     end
-    unless @is_room
-      @room = Room.new
-      @entry = Entry.new
-    end
 
     return if ReadCount.find_by(user_id: current_user.id, tweet_id: @tweet.id)
 
@@ -50,7 +46,6 @@ class TweetsController < ApplicationController
 
     if tweet.save
       if tweet.comments
-        tweet.create_notification_comment!(current_user, tweet.comment_id)
         redirect_to request.referer, notice: '返信をツイートしました'
       else
         redirect_to root_path, notice: '投稿しました'

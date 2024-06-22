@@ -8,7 +8,6 @@ class LikesController < ApplicationController
     like = current_user.likes.build
     like.tweet_id = params[:tweet_id]
     like.save
-    tweet.create_notification_like!(current_user)
     redirect_to request.referer
   end
 
