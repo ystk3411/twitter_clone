@@ -10,8 +10,6 @@ class MessagesController < ApplicationController
 
   def create
     if Entry.where(user_id: current_user.id, room_id: params[:id]).present?
-      Rails.logger.debug 'test'
-      Rails.logger.debug params
       @message = Message.create!(user_id: current_user.id, room_id: params[:id], content: params[:content])
       redirect_to request.referer
     else

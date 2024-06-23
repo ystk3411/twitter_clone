@@ -26,6 +26,19 @@ class TweetsController < ApplicationController
     user_entry = Entry.where(user_id: @tweet.user.id)
     current_user_entry.pluck(:room_id)
     user_entry.pluck(:room_id)
+    current_user_room_ids = current_user_entry.pluck(:room_id)
+    user_room_ids = user_entry.pluck(:room_id)
+
+    unless @tweet.user.id == current_user.id
+      if (current_user_room_ids & user_room_ids).present?
+        @is_room = true
+        @room_id = (current_user_room_ids & user_room_ids).first
+      end
+      unless @is_room
+        @room = Room.new
+        @entry = Entry.new
+      end
+    end
 
     return if ReadCount.find_by(user_id: current_user.id, tweet_id: @tweet.id)
 

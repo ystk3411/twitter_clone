@@ -30,6 +30,14 @@ class UsersController < ApplicationController
 
     @is_room = true
     @room_id = (current_user_room_ids & user_room_ids)
+    if (current_user_room_ids & user_room_ids).present?
+      @is_room = true
+      @room_id = (current_user_room_ids & user_room_ids)
+    end
+    unless @is_room
+      @room = Room.new
+      @entry = Entry.new
+    end
   end
 
   def edit
