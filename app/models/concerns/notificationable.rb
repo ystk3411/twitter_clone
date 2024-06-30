@@ -24,7 +24,7 @@ module Notificationable
     )
 
     notification.checked = true if notification.visitor_id == notification.visited_id
-    notification.save if notification.valid?
+    notification.save if ånotification.valid?
   end
 
   def visited_id?
