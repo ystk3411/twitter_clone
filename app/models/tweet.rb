@@ -2,7 +2,6 @@
 
 class Tweet < ApplicationRecord
   include Notificationable
-  after_create :create_notification!
   belongs_to :user
   has_many :likes, dependent: :destroy
   has_many :retweets, dependent: :destroy
@@ -24,5 +23,13 @@ class Tweet < ApplicationRecord
 
   def bookmarked_by?(user)
     book_marks.where(user_id: user.id).exists?
+  end
+
+  def notification_create_invalid?
+    User.find(user_id).id == visited_id
+  end
+
+  def visited_id
+    tweet.present? ? tweet.user.id : 0
   end
 end
