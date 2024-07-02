@@ -26,6 +26,10 @@ class UsersController < ApplicationController
 
     return if @user.id == current_user.id
 
+    return if (current_user_room_ids & user_room_ids).blank?
+
+    @is_room = true
+    @room_id = (current_user_room_ids & user_room_ids)
     if (current_user_room_ids & user_room_ids).present?
       @is_room = true
       @room_id = (current_user_room_ids & user_room_ids)

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  get 'notifications/index'
   get 'messages/index'
   get 'messages/show'
   root 'tweets#index'
@@ -12,6 +13,7 @@ Rails.application.routes.draw do
   resources :messages, only: %w[index create show]
   resources :rooms, only: %w[create]
   resources :relationships, only: %w[create destroy]
+  resources :notifications, only: %w[index]
   resources :tweets do
     resources :likes, only: %w[create destroy]
     resources :retweets, only: %w[create destroy]
