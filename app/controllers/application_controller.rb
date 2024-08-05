@@ -6,8 +6,12 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  def after_sign_up_path_for(resource)
+    root_path
+  end
+
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: %i[telephone_number birth_day name])
+    devise_parameter_sanitizer.permit(:sign_up, keys: %i[telephone_number birth_day name encrypted_password])
   end
 
   def after_sign_in_path_for(_resource)

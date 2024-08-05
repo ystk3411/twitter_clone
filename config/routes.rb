@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get 'messages/show'
   root 'tweets#index'
   devise_for :users,
-             controllers: { omniauth_callbacks: 'users/omniauth_callbacks', registrations: 'users/registrations' }
+             controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
   resources :tasks
   resources :users
   resources :bookmarks, only: %w[index]
