@@ -10,7 +10,10 @@ module Notificationable
   def create_notification!
     return if notification_create_invalid?
 
-    temp = Notification.where(visitor_id: user_id, visited_id: visited_id, tweet_id: tweet_id, action_type: self.class.to_s.downcase) if defined? tweet_id
+    if defined? tweet_id
+      temp = Notification.where(visitor_id: user_id, visited_id:, tweet_id:,
+                                action_type: self.class.to_s.downcase)
+    end
 
     return if temp.present?
 

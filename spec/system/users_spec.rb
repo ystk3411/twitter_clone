@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "Users", type: :system do
+RSpec.describe 'Users', type: :system do
   before do
     driven_by(:rack_test)
   end
@@ -14,7 +16,7 @@ RSpec.describe "Users", type: :system do
       select '2000', from: 'user_birth_day_1i'
       select '1', from: 'user_birth_day_2i'
       select '1', from: 'user_birth_day_3i'
-      fill_in 'user[telephone_number]', with: 0120117117
+      fill_in 'user[telephone_number]', with: 0o120117117
       fill_in 'user[password]', with: 'password'
       fill_in 'user[password_confirmation]', with: 'password'
       click_button '新規登録'
@@ -29,7 +31,7 @@ RSpec.describe "Users", type: :system do
       select '2000', from: 'user_birth_day_1i'
       select '1', from: 'user_birth_day_2i'
       select '1', from: 'user_birth_day_3i'
-      fill_in 'user[telephone_number]', with: 0120117117
+      fill_in 'user[telephone_number]', with: 0o120117117
       fill_in 'user[password]', with: 'password'
       fill_in 'user[password_confirmation]', with: 'password'
       click_button '新規登録'
@@ -39,8 +41,8 @@ RSpec.describe "Users", type: :system do
 
   describe 'log in' do
     before do
-      @user = FactoryBot.build (:user)
-      @user.confirm
+      user = FactoryBot.build(:user)
+      user.confirm
     end
 
     it 'success to log in' do
