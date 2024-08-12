@@ -51,7 +51,7 @@ class TweetsController < ApplicationController
     tweet.comment_id = params[:tweet_id] if params[:tweet_id]
 
     if tweet.save
-      if tweet.comments
+      if tweet.comment_id
         redirect_to request.referer, notice: '返信をツイートしました'
       else
         redirect_to root_path, notice: '投稿しました'

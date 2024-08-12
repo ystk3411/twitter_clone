@@ -4,13 +4,16 @@ module Notificationable
   extend ActiveSupport::Concern
 
   included do
-    after_create :create_notification!
+    after_create :create_notification!, if: :tweet_id?
   end
 
   def create_notification!
     return if notification_create_invalid?
 
-    temp = Notification.where(visitor_id: user_id, visited_id: visited_id, tweet_id: tweet_id, action_type: self.class.to_s.downcase)
+    if defined? tweet_id
+      temp = Notification.where(visitor_id: user_id, visited_id:, tweet_id:,
+                                action_type: self.class.to_s.downcase)
+    end
 
     return if temp.present?
 
@@ -26,5 +29,9 @@ module Notificationable
 
   def visited_id?
     raise NotImplementedError, "You must implement #{self.class}##{__method__}"
+  end
+
+  def tweet_id?
+    tweet_id if defined? tweet_id
   end
 end

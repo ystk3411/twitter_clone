@@ -3,6 +3,11 @@
 class User < ApplicationRecord
   devise :omniauthable, omniauth_providers: %i[github]
   validates :uid, uniqueness: { scope: :provider }, if: -> { uid.present? }
+  validates :name, presence: true
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  validates :email, presence: true,
+                    format: { with: VALID_EMAIL_REGEX }
+  validates :birth_day, comparison: { less_than: Time.zone.now }
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,

@@ -8,10 +8,14 @@ Metrics/MethodLength:
   Max: 20
   Exclude:
     - 'db/migrate/*'
+    - 'app/controllers/tweets_controller.rb'
+    - 'app/controllers/users_controller.rb'
 Metrics/AbcSize:
   Max: 32
   Exclude:
     - 'db/migrate/*'
+    - 'app/controllers/tweets_controller.rb'
+    - 'app/controllers/users_controller.rb'
 Metrics/BlockLength:
   Exclude:
     - config/environments/*.rb
@@ -23,3 +27,9 @@ Layout/LineLength:
 Hc/RailsSpecificActionName:
   Exclude:
     - app/controllers/users/omniauth_callbacks_controller.rb
+RSpec/ExampleLength:
+  Exclude:
+    - spec/models/user_spec.rb
+    - 'spec/requests/users_spec.rb'
+    - 'spec/system/tweets_spec.rb'
+    - 'spec/system/users_spec.rb'

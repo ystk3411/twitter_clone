@@ -14,7 +14,10 @@ div.container.d-flex.h-100.text-white.box
               | フォロー中
     div.d-flex.border-bottom.p-2.gap-2
       - if current_user
-        = link_to image_tag(current_user.profile,size:"40x40",class:"rounded-circle") ,user_path(current_user.id)
+        - if current_user.profile.attached?
+          = link_to image_tag(current_user.profile,size:"40x40",class:"rounded-circle") ,user_path(current_user.id)
+        - else
+          = link_to image_tag("twitter_logo.jpg",size:"40x40",class:"rounded-circle") ,user_path(current_user.id)
       - else  
         = link_to image_tag("twitter_logo.jpg",size:"40x40",class:"rounded-circle") ,new_user_session_path
       div.w-100.flex-column
